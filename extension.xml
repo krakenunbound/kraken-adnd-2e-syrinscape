@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root release="0.2.1" version="0.2.1">
+  <properties>
+    <name>Kraken AD&amp;D 2E Syrinscape</name>
+    <version>0.2.1</version>
+    <author>The Kraken</author>
+    <description>Kraken-branded Syrinscape automation for the AD&amp;D 2E Fantasy Grounds ruleset.</description>
+    <loadorder>99</loadorder>
+    <ruleset>2E</ruleset>
+  </properties>
+
+  <announcement>
+    <text>Kraken AD&amp;D 2E Syrinscape v0.2.1</text>
+    <font>systemfont</font>
+  </announcement>
+
+  <base>
+    <includefile source="strings/strings.xml" />
+    <script file="scripts/data_sound_catalog.lua" name="CCSyrinCatalog" />
+    <script file="scripts/data_spell_lookup.lua" name="CCSyrinCatalogSpells" />
+    <script file="scripts/manager_ccsyrin.lua" name="CCSyrin" />
+  </base>
+</root>
+
