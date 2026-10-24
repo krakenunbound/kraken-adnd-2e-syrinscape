@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root release="0.2.1" version="0.2.1">
+<root release="1.0.0" version="1.0.0">
   <properties>
     <name>Kraken AD&amp;D 2E Syrinscape</name>
-    <version>0.2.1</version>
+    <version>1.0.0</version>
     <author>The Kraken</author>
-    <description>Kraken-branded Syrinscape automation for the AD&amp;D 2E Fantasy Grounds ruleset.</description>
+    <description>Syrinscape sounds for AD&amp;D 2E from the game's chat: weapon swings and hits, damage types, critical hits, automatic misses and Krits &amp; Fumbles results, spells by name, school or caster level, saves, mirror image and stoneskin, turn undead, wounds, healing and initiative. Nine sound categories and every setting in Options &gt; Kraken Syrinscape. GM side only; /krakensyrin help.</description>
     <loadorder>99</loadorder>
-    <ruleset>2E</ruleset>
+    <ruleset><name>2E</name></ruleset>
   </properties>
 
   <announcement>
-    <text>Kraken AD&amp;D 2E Syrinscape v0.2.1</text>
+    <text>Kraken AD&amp;D 2E Syrinscape v1.0.0. Settings: Options &gt; Kraken Syrinscape. /krakensyrin help</text>
     <font>systemfont</font>
   </announcement>
 
   <base>
     <includefile source="strings/strings.xml" />
+    <includefile source="campaign/record_krakensyrin_options.xml" />
     <script file="scripts/data_sound_catalog.lua" name="CCSyrinCatalog" />
+    <script file="scripts/data_sound_extra.lua" name="CCSyrinExtra" />
     <script file="scripts/data_spell_lookup.lua" name="CCSyrinCatalogSpells" />
+    <script file="scripts/data_2e_spell_coverage.lua" name="CCSyrin2ESpells" />
     <script file="scripts/manager_ccsyrin.lua" name="CCSyrin" />
   </base>
 </root>
-

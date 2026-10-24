@@ -1,14 +1,27 @@
--- Named extension scripts do not have a guaranteed initialization order.
-CCSyrinCatalog = CCSyrinCatalog or {}
-
-CCSyrinCatalog.spells = {
-  { pattern = 'cure light wounds', name = 'Cure wounds 1-2', sound_id = 'ss|3665515|element|oneshot|Cure wounds 1-2' },
-  { pattern = 'cure moderate wounds', name = 'Cure wounds 3-4', sound_id = 'ss|3665516|element|oneshot|Cure wounds 3-4' },
-  { pattern = 'cure serious wounds', name = 'Cure wounds 5-6', sound_id = 'ss|3665517|element|oneshot|Cure wounds 5-6' },
-  { pattern = 'cure critical wounds', name = 'Cure wounds 7-9', sound_id = 'ss|3665514|element|oneshot|Cure wounds 7-9' },
-  { pattern = 'cause light wounds', name = 'Inflict wounds 1-2', sound_id = 'ss|415609|element|oneshot|Inflict wounds 1-2' },
-  { pattern = 'cause serious wounds', name = 'Inflict wounds 5-6', sound_id = 'ss|415610|element|oneshot|Inflict wounds 5-6' },
-  { pattern = 'cause critical wounds', name = 'Inflict wounds 7-9', sound_id = 'ss|415611|element|oneshot|Inflict wounds 7-9' },
+spells = {
+  { pattern = 'cure light wounds', name = 'Cure Wounds 1-2', sound_id = 'ss|415646|element|oneshot|Cure Wounds 1-2' },
+  { pattern = 'cure moderate wounds', name = 'Cure Wounds 3-4', sound_id = 'ss|415647|element|oneshot|Cure Wounds 3-4' },
+  { pattern = 'cure serious wounds', name = 'Cure Wounds 5-6', sound_id = 'ss|415648|element|oneshot|Cure Wounds 5-6' },
+  { pattern = 'cure critical wounds', name = 'Cure Wounds 7-9', sound_id = 'ss|415649|element|oneshot|Cure Wounds 7-9' },
+  { pattern = 'cause light wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'cause moderate wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'cause serious wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'cause critical wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'inflict light wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'inflict moderate wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'inflict serious wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'inflict critical wounds', name = 'Magical windchimes (generic inflict wounds)', sound_id = 'ss|4497403|element|oneshot|Magical windchimes' },
+  { pattern = 'protection from alignment', name = 'Protection from Evil and Good', sound_id = 'ss|556032|element|oneshot|Protection from Evil and Good' },
+  { pattern = 'protection from evil', name = 'Protection from Evil and Good', sound_id = 'ss|556032|element|oneshot|Protection from Evil and Good' },
+  { pattern = 'protection from good', name = 'Protection from Evil and Good', sound_id = 'ss|556032|element|oneshot|Protection from Evil and Good' },
+  { pattern = 'magic weapon', name = 'Holy Weapon', sound_id = 'ss|530110|element|oneshot|Holy Weapon' },
+  { pattern = 'lay on hands', name = 'Cure Wounds 1-2', sound_id = 'ss|415646|element|oneshot|Cure Wounds 1-2' },
+  { pattern = 'first aid', name = 'Mending', sound_id = 'ss|415580|element|oneshot|Mending' },
+  { pattern = 'ghost sound', name = 'Message', sound_id = 'ss|415581|element|oneshot|Message' },
+  { pattern = 'command undead', name = 'Fear', sound_id = 'ss|415555|element|oneshot|Fear' },
+  { pattern = 'turn undead', name = 'Channel Divinity', sound_id = 'ss|415671|element|oneshot|Channel Divinity' },
+  { pattern = 'divine aura', name = 'Shield of Faith', sound_id = 'ss|530117|element|oneshot|Shield of Faith' },
+  { pattern = 'sneak attack', name = 'Dagger critical', sound_id = 'ss|2717039|element|oneshot|Dagger critical' },
   { pattern = 'animal friendship/speak with animals', name = 'Animal Friendship/Speak with Animals', sound_id = 'ss|620128|element|oneshot|Animal Friendship/Speak with Animals' },
   { pattern = 'protection from evil and good', name = 'Protection from Evil and Good', sound_id = 'ss|556032|element|oneshot|Protection from Evil and Good' },
   { pattern = 'detect poison and disease', name = 'Detect Poison and Disease', sound_id = 'ss|415641|element|oneshot|Detect Poison and Disease' },
@@ -128,3 +141,17 @@ CCSyrinCatalog.spells = {
 
 
 
+
+-- Cross-package globals are ready during onInit, not during chunk loading.
+-- The per-game coverage file may have run first: add only what it lacks.
+function onInit()
+  CCSyrinCatalog.spells = CCSyrinCatalog.spells or {}
+  local seen = {}
+  for _, s in ipairs(CCSyrinCatalog.spells) do seen[s.pattern] = true end
+  for _, s in ipairs(spells) do
+    if not seen[s.pattern] then
+      table.insert(CCSyrinCatalog.spells, s)
+      seen[s.pattern] = true
+    end
+  end
+end

@@ -17,7 +17,7 @@ OUT = os.path.join(REPO, "build", "KrakenADD2ESyrinscape.ext")
 
 def files():
     yield "extension.xml"
-    for top in ("scripts", "strings"):
+    for top in ("campaign", "scripts", "strings"):
         for d, _, fs in os.walk(os.path.join(REPO, top)):
             for f in sorted(fs):
                 yield os.path.relpath(os.path.join(d, f), REPO).replace("\\", "/")
@@ -42,14 +42,14 @@ def main():
     if build_only:
         return
     title = f"Kraken AD&D 2E Syrinscape {tag}"
-    notes = ("Beta. Install: KrakenADD2ESyrinscape.ext -> Fantasy Grounds \\extensions\\, then enable it in your "
+    notes = ("Install: KrakenADD2ESyrinscape.ext -> Fantasy Grounds \\extensions\\, then enable it in your "
              "AD&D 2E campaign. Needs Syrinscape Online set up in FGU's Syrinscape sound settings. See the README.")
     exists = subprocess.run(["gh", "release", "view", tag], cwd=REPO,
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
     if exists:
         subprocess.run(["gh", "release", "upload", tag, OUT, "--clobber"], cwd=REPO, check=True)
     else:
-        subprocess.run(["gh", "release", "create", tag, OUT, "--title", title, "--notes", notes, "--prerelease"],
+        subprocess.run(["gh", "release", "create", tag, OUT, "--title", title, "--notes", notes],
                        cwd=REPO, check=True)
     print("[done]", tag)
 
